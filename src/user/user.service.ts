@@ -16,6 +16,14 @@ export class UserService {
     return users;
   }
 
+  async findUserById(id: string): Promise<User> {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new InternalServerErrorException('Usuário não encontrado');
+    }
+    return user;
+  }
+
   async createUser(data: CreateUserInput): Promise<User> {
     const user = this.userRepository.create(data);
 
